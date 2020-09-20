@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"image"
 	"image/color"
 	"image/png"
@@ -8,8 +9,11 @@ import (
 	"os"
 )
 
+var rm = flag.Bool("r", false, "Remove sorce file")
+
 func main() {
-	src, err := os.Open(os.Args[1])
+	flag.Parse()
+	src, err := os.Open(flag.Arg(0))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -38,5 +42,12 @@ func main() {
 
 	if err := png.Encode(dst, grayImg); err != nil {
 		log.Fatal(err)
+	}
+
+	if *rm {
+		err = os.Remove(flag.Arg(0))
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }
