@@ -1,4 +1,4 @@
-package main
+package img2gray
 
 import (
 	"flag"
@@ -6,7 +6,6 @@ import (
 	"image/color"
 	"image/jpeg"
 	"image/png"
-	"log"
 	"os"
 	"path/filepath"
 )
@@ -15,6 +14,7 @@ func removeSrc(src string) error {
 	if err := os.Remove(src); err != nil {
 		return err
 	}
+	return nil
 }
 
 func ToGray(src, dst string, rmsrc bool) error {
@@ -44,16 +44,16 @@ func ToGray(src, dst string, rmsrc bool) error {
 	if err != nil {
 		return err
 	}
-	defer dst.Close()
+	defer df.Close()
 
 	switch filepath.Ext(src) {
 	case ".png":
-		err = png.Encode(dst, grayImg)
+		err = png.Encode(df, grayImg)
 	case ".jpeg", ".jpg":
-		err = jpeg.Encode(dst, grayImg, &jpeg.Options{Quality: jpeg.DefaultQuality})
+		err = jpeg.Encode(df, grayImg, &jpeg.Options{Quality: jpeg.DefaultQuality})
 	}
 	if err != nil {
-		log.Fatal(err)
+		return nil
 	}
 
 	if rmsrc {
@@ -61,4 +61,5 @@ func ToGray(src, dst string, rmsrc bool) error {
 			return err
 		}
 	}
+	return nil
 }

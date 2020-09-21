@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+
+	"github.com/Le0tk0k/img2gray"
 )
 
 var rm = flag.Bool("r", false, "Remove sorce file")
