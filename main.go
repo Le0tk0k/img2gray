@@ -4,9 +4,11 @@ import (
 	"flag"
 	"image"
 	"image/color"
+	"image/jpeg"
 	"image/png"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 var rm = flag.Bool("r", false, "Remove sorce file")
@@ -40,7 +42,13 @@ func main() {
 	}
 	defer dst.Close()
 
-	if err := png.Encode(dst, grayImg); err != nil {
+	switch filepath.Ext(flag.Arg(0)) {
+	case ".png":
+		err = png.Encode(dst, grayImg)
+	case ".jpeg", ".jpg":
+		err = jpeg.Encode(dst, grayImg, &jpeg.Options{Quality: jpeg.DefaultQuality})
+	}
+	if err != nil {
 		log.Fatal(err)
 	}
 
