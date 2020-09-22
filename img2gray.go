@@ -1,7 +1,6 @@
 package img2gray
 
 import (
-	"flag"
 	"image"
 	"image/color"
 	"image/jpeg"
@@ -18,7 +17,6 @@ func removeSrc(src string) error {
 }
 
 func ToGray(src, dst string, rmsrc bool) error {
-	flag.Parse()
 	sf, err := os.Open(src)
 	if err != nil {
 		return err
