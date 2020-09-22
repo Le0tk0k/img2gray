@@ -2,6 +2,9 @@
 This CLI generates gray image.  
 .png, .jpg(.jpeg), are only supported.
 
+## Explanation Entry
+[Goで画像をグレースケールにするCLIツールを作った](https://qiita.com/Le0tk0k/items/3a2693ae086504f0849e)
+
 ## Install
 
 ```
